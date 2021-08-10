@@ -132,3 +132,11 @@ You can call `MainLoopX.stop()`/`MLX.stop()` to stop the application.
 
 TODO
 
+## Notes
+
+This project is
+[MIT-licensed](https://github.com/erovas/MainLoopX.js/blob/gh-pages/LICENSE.txt).
+
+Compatible with all modern browsers (IE9+) including mobile browsers, as well
+as node.js. There are no dependencies.
+
