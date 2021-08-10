@@ -135,7 +135,7 @@ TODO
 ## Notes
 
 This project is
-[MIT-licensed](https://github.com/erovas/MainLoopX.js/blob/gh-pages/LICENSE.txt).
+[MIT-licensed](https://github.com/erovas/MainLoopX.js/blob/main/LICENSE).
 
 Compatible with all modern browsers (IE9+) including mobile browsers, as well
 as node.js. There are no dependencies.
