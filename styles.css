@@ -1,0 +1,39 @@
+html, body {
+    font-family: Arial,sans-serif;
+    font-size: 20px;
+    height: 100%;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+canvas {
+    background-color: #EEEEEE;
+    bottom: 0;
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#controls-container {
+    position: absolute;
+    z-index: 10;
+    left: 1rem;
+    top: 1rem;
+}
+
+#fpscounter {
+    position: absolute;
+    z-index: 10;
+    right: 1rem;
+    top: 1rem;
+}
