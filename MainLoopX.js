@@ -1,5 +1,5 @@
 /*!
- * MainLoopX.js v1.0.0
+ * MainLoopX.js v1.1.0
  * [Back-compatibility: IE9+]
  * Copyright (c) 2021, Emanuel Rojas Vásquez
  * MIT License
@@ -11,10 +11,9 @@
         return console.error('MainLoopX.js has already been defined');
 
     var ONE_THOUSAND = 1000,
-        fps = 60,
 
         //Modificables por el programador
-        simulationTimeStep = ONE_THOUSAND / fps,
+        simulationTimeStep = ONE_THOUSAND / 60,
         timeStep = simulationTimeStep,
         frameDelay = simulationTimeStep,
         fpsUpdateInterval = ONE_THOUSAND,
@@ -22,6 +21,7 @@
         maxUpdateSteps = 240,  //agregado mio
 
         //Para calculos del mainloop
+        fps = 0,
         frameDelta = 0,
         lastFrameTimeMs = 0,
         elapsedTime = 0,
@@ -43,10 +43,12 @@
 
         //Callbacks del mainloop
         NOOP = function() {},
+        raw = NOOP,
         begin = NOOP,
         update = NOOP,
         draw = NOOP,
         end = NOOP,
+        reset = NOOP,
         
         //Para el "while(true)"
         rAF = window.requestAnimationFrame,
@@ -66,6 +68,8 @@
         rafHandleIndex = rAF(animate);
         elapsedTime = timestamp - lastFrameTimeMs;
 
+        raw(fps, panic,   timestamp, frameDelta, lastFrameTimeMs, elapsedTime, lastFpsUpdate, framesSinceLastFpsUpdate, numUpdateSteps);
+
         //Limitacion de FPS
         if(elapsedTime < frameDelay)
             return;
@@ -73,7 +77,7 @@
         frameDelta += timestamp - lastFrameTimeMs;
         lastFrameTimeMs = timestamp - (elapsedTime % frameDelay);
 
-        begin(timestamp, frameDelta,   lastFrameTimeMs, elapsedTime, lastFpsUpdate, framesSinceLastFpsUpdate, numUpdateSteps);
+        begin(fps, panic,   timestamp, frameDelta, lastFrameTimeMs, elapsedTime, lastFpsUpdate, framesSinceLastFpsUpdate, numUpdateSteps);
     
         //Calculo de los FPS
         if (timestamp > lastFpsUpdate + fpsUpdateInterval) {
@@ -83,28 +87,26 @@
         }
 
         framesSinceLastFpsUpdate++;
+
+        panic = false;
     
         //Simulacion
-        //let acumulador = 0;
         numUpdateSteps = 0;
         while (frameDelta >= simulationTimeStep) {
             update(timeStep);
             frameDelta -= simulationTimeStep;
-            //acumulador++;
+
             if (++numUpdateSteps >= maxUpdateSteps) {
                 panic = true;
                 break;
             }
         }
-        //console.log(acumulador);
 
         //Renderizado
         draw(frameDelta / simulationTimeStep);
     
         // Run any updates that are not dependent on time in the simulation. See
         end(fps, panic,   timestamp, frameDelta, lastFrameTimeMs, elapsedTime, lastFpsUpdate, framesSinceLastFpsUpdate, numUpdateSteps);
-    
-        panic = false;
     }
 
     function start(){
@@ -255,6 +257,10 @@
             return running;
         },
 
+        set raw(fun){
+            raw = isFunction(fun)? fun : raw;
+        },
+
         set begin(fun) {
             begin = isFunction(fun)? fun : begin;
         },
@@ -271,9 +277,17 @@
             end = isFunction(fun)? fun : end;
         },
 
+        set reset(fun){
+            reset = isFunction(fun)? fun : reset;
+        },
+
         resetDefaultValues: resetDefaultValues,
 
         resetFrameDelta: resetFrameDelta,
+
+        resetUser: function(){
+            reset();
+        },
 
         start: start,
 

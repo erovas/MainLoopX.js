@@ -9,13 +9,16 @@ This script is based on [MainLoop.js](https://github.com/IceCreamYou/MainLoop.js
 
 | Property/Method       | Description                                                                                                      |
 |-----------------------|------------------------------------------------------------------------------------------------------------------|
+| `raw`                 | SET - Sets the function that always runs in the the main loop.                                                   |
 | `begin`               | SET - Sets the function that runs at the beginning of the main loop.                                             |
 | `update`              | SET - Sets the function that runs updates (e.g. AI and physics).                                                 |
 | `draw`                | SET - Sets the function that draws things on the screen.                                                         |
 | `end`                 | SET - Sets the function that runs at the end of the main loop.                                                   |
+| `reset`               | SET - Sets the function that you can execute with resetUser() method.                                            |
 | `isRunning`           | GET - Returns true whether the main loop is currently running.                                                   |
 | `resetDefaultValues()`| Reset timers to defaults.                                                                                        |
 | `resetDefaultValues()`| Reset the amount of time that has not yet been simulated to zero.                                                |
+| `resetUser()`         | Method that executes the reset function defined above                                                            |
 | `start()`             | Starts the main loop.                                                                                            |
 | `stop()`              | Stops the main loop.                                                                                             |
 | `dev`                 | GET - Returns an object (see below).                                                                             |
