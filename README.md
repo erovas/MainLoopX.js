@@ -105,7 +105,7 @@ using the following methods:
    typically used for cleanup tasks such as adjusting the visual quality based
    on the frame rate.
 
-The `update` function receives a `delta`/`timestep` parameter which holds the amount of
+The `update` function receives a `timestep` parameter which holds the amount of
 time in milliseconds that should be simulated. This should be used to calculate
 movement. For example, if an object `obj` has an x-axis velocity of 100 units
 per second (0.1 units per millisecond), the `update` function might look like
@@ -113,7 +113,7 @@ this:
 
 ```javascript
 function update(timestep) {
-    obj.x += 0.1 * delta;
+    obj.x += 0.1 * timestep;
 }
 ```
 
@@ -133,7 +133,7 @@ You can call `MainLoopX.stop()`/`MLX.stop()` to stop the application.
 
 ## Example
 
-TODO
+https://erovas.github.io/MainLoopX.js/
 
 ## Notes
 
