@@ -19,7 +19,7 @@ you can find tool for this library in https://github.com/erovas/MainLoopX_tools
 | `reset`               | SET - Sets the function that you can execute with resetUser() method.                                            |
 | `isRunning`           | GET - Returns true whether the main loop is currently running.                                                   |
 | `resetDefaultValues()`| Reset timers to defaults.                                                                                        |
-| `resetDefaultValues()`| Reset the amount of time that has not yet been simulated to zero.                                                |
+| `resetFrameDelta()`   | Reset the amount of time that has not yet been simulated to zero.                                                |
 | `resetUser()`         | Method that executes the reset function defined above                                                            |
 | `start()`             | Starts the main loop.                                                                                            |
 | `stop()`              | Stops the main loop.                                                                                             |
