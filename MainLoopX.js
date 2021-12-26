@@ -24,6 +24,7 @@
         fps = 0,
         frameDelta = 0,
         lastFrameTimeMs = 0,
+        lastTimestampCompensated = 0,
         elapsedTime = 0,
         lastFpsUpdate = 0,
         framesSinceLastFpsUpdate = 0,
@@ -66,7 +67,7 @@
     function animate(timestamp) {
 
         rafHandleIndex = rAF(animate);
-        elapsedTime = timestamp - lastFrameTimeMs;
+        elapsedTime = timestamp - lastTimestampCompensated;
 
         raw(fps, panic,   timestamp, frameDelta, lastFrameTimeMs, elapsedTime, lastFpsUpdate, framesSinceLastFpsUpdate, numUpdateSteps);
 
@@ -75,7 +76,8 @@
             return;
 
         frameDelta += timestamp - lastFrameTimeMs;
-        lastFrameTimeMs = timestamp - (elapsedTime % frameDelay);
+        lastFrameTimeMs = timestamp;
+        lastTimestampCompensated = timestamp - (elapsedTime % frameDelay);
 
         begin(fps, panic,   timestamp, frameDelta, lastFrameTimeMs, elapsedTime, lastFpsUpdate, framesSinceLastFpsUpdate, numUpdateSteps);
     
